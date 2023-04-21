@@ -1,0 +1,78 @@
+/* Set the font family and background color for the page */
+body {
+  font-family: Arial, sans-serif;
+  background-color: hsl(192, 85%, 84%);
+}
+
+/* Add a container for the page content */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Style the heading */
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+/* Add some style to the paragraphs */
+p {
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Add a border around the author's picture */
+.author-pic {
+  border: 2px solid #333;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+/* Add some style to the author's name and job title */
+.author-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.author-job {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Add a separator between the author info and the content */
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 40px 0;
+}
+
+/* Add some style to the list items */
+ul {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+/* Add some style to the list item bullets */
+li::before {
+  content: '\2022';
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+/* Style the links */
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
