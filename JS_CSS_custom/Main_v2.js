@@ -3,17 +3,22 @@
 //execute only when window is fully loaded
 window.onload = function () {
     
-    //define map object, define basemap tilelayer
+    //define map object, define basemap tilelayers
     var mapObject = L.map('mapId');
 
-    var baseMap = L.tileLayer('https://api.mapbox.com/styles/v1/liping17/cj6ut4r6u1vnw2rmrtwymq5lq/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGlwaW5nMTciLCJhIjoiY2o2dTJwYTJ0MG1wdzMzbzRrNDJlOG5jbyJ9.cr8HRltBug7xDGgTV_X__A', {
+    //streets
+    var streetMap = L.tileLayer('https://api.mapbox.com/styles/v1/liping17/cj6ut4r6u1vnw2rmrtwymq5lq/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGlwaW5nMTciLCJhIjoiY2o2dTJwYTJ0MG1wdzMzbzRrNDJlOG5jbyJ9.cr8HRltBug7xDGgTV_X__A', {
         maxZoom: 18,
         attribution: '&copy; <a href=”https://www.mapbox.com/about/maps/”>Mapbox</a> &copy; <a href=”http://www.openstreetmap.org/copyright”>OpenStreetMap</a>'
     });
 
+    //satellite
+    var satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
     
-    //add basemap to map
-    baseMap.addTo(mapObject);
+    
 
     //define popup function
     function addPopups(feature, layer) {
@@ -31,20 +36,26 @@ window.onload = function () {
     
     }
     
-    //define variable for marker options (symbology for mines layer)
-    var geojsonMarkerOptions = {
-        radius: 8,
-        fillColor: "green",
-        color: "black",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8 
-    };
-
     //read in mines geoJSON, define as variable. Pass to circleMarker
     var aumlayer = L.geoJSON(aum, {
         pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, geojsonMarkerOptions)
+
+            //add popup
+            var popupContent = feature.properties.Mine_Name;
+
+            //base radius marker option on mine size
+            function getOptions(properties) {
+                return {
+                    radius: Math.sqrt(Number(properties.Area_sqm) / 2000) + 3,
+                    fillColor: "green",
+                    color: "black",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.5
+                };
+            }
+
+            return L.circleMarker(latlng, getOptions(feature.properties)).bindPopup(popupContent);
         } 
     });
 
@@ -62,17 +73,61 @@ window.onload = function () {
         },
         onEachFeature: addPopups
        });
-
-    //add mine and exposure layers to map
+    
+    
+    //add basemaps to map
+    streetMap.addTo(mapObject);
+    satelliteMap.addTo(mapObject);
+    
+    //add mine and exposure layers to map 
     mapObject.addLayer(aumlayer);
     mapObject.addLayer(expolayer);
 
     //define variables for basemap layer and overlays (overlay contains mine and exposure layers)
-    var baseLayer = {"Base Map": baseMap};
-    var overlay = {"Mines": aumlayer, "Potential Exposure": expolayer};
+    var baseLayer = {"Satellite Map": satelliteMap, "Street Map": streetMap};
+    var overlay = {"Mines (Note: Potential Exposure layer must be off to identify mine names)": aumlayer, "Potential Exposure": expolayer};
 
     //pass layer variables to leaflet layer control
     L.control.layers(baseLayer, overlay, {collapsed: false}).addTo(mapObject);
+
+    //define legend 
+    const legend = L.control.Legend({
+        position: "bottomleft",
+        collapsed: false,
+        symbolWidth: 24,
+        opacity: 1,
+        column: 1,
+        legends: [
+        {
+            label: "Mines (larger circle indicates bigger mine)",
+            type: "circle",
+            color: "#00FF00",
+            fillColor: "#00FF00",
+            weight: 2
+        },{
+            label: "low potential exposure",
+            type: "rectangle",
+            color: "#0000ff",
+            fillColor: "#0000ff",
+            weight: 2
+        },{
+            label: "medium potential exposure",
+            type: "rectangle",
+            color: "#ffff00",
+            fillColor: "#ffff00",
+            weight: 2 
+        },{
+            label: "high potential exposure",
+            type: "rectangle",
+            color: "#ff0000",
+            fillColor: "#ff0000",
+            weight: 2
+        }]
+    }).addTo(mapObject); 
+
+    
+
+    
     
     //set map view to extent of exposure layer
     mapObject.fitBounds(expolayer.getBounds());
