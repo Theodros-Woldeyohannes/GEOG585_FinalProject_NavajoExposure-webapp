@@ -8,15 +8,21 @@
   <link rel="stylesheet" href="JS_CSS_downloaded_libraries/bootstrap-3.4.1-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="JS_CSS_downloaded_libraries/leaflet.css" />
   <link rel="stylesheet" href="JS_CSS_downloaded_libraries/leaflet.legend.css" />
+  <link rel="stylesheet" href="JS_CSS_downloaded_libraries/noUiSlider-15.7.0/dist/nouislider.css" />
+
+
   <link rel="stylesheet" href="JS_CSS_custom/mainStylesheet.css" />
   <!-- Scripts -->
+  
   <script src="JS_CSS_downloaded_libraries/jquery.min.js"></script>
   <script src="JS_CSS_downloaded_libraries/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
   <script src="JS_CSS_downloaded_libraries/leaflet.js"></script>
   <script src="JS_CSS_downloaded_libraries/leaflet.legend.js"></script>
+  <script src="JS_CSS_downloaded_libraries/noUiSlider-15.7.0/dist/nouislider.js"></script>
   <script src="JS_CSS_custom/AUM.js"></script>
   <script src="JS_CSS_custom/NNExp.js"></script>
-  <script src="JS_CSS_custom/Main_v2.js"></script>
+  <script src="JS_CSS_custom/Main_v3.js"></script>
+  
 </head>
 
 <body>
@@ -45,6 +51,11 @@
   </div>
 </nav>
 
+
+<!-- create div to hold slider -->
+<div id="slider"></div> 
+
+<!-- create div to hold map -->
 <div id="mapId"></div>
    
 <div class="container">
@@ -65,21 +76,21 @@
 
     <h3>Background</h3>
     
-    <p>Residents of the Navajo Nation (Dine Bikeyah), a sovereign Indigenous Tribal nation of the American
+    <p>Residents of Navajo Nation (Dine Bikeyah), a sovereign Indigenous Tribal nation of the American
         Southwest, are vulnerable to environmental pollution from various sources such as resource
         extraction and unregulated solid waste disposal (Kirkemeno et al. 1998; Ong et al. 2014; Lewis et
         al. 2017). From the 1940s through the 1980s, one of the most sought-after resources
         was uranium, and today there are hundreds of abandoned uranium mines across Navajo
-        lands. This legacy of mining and continuing presence of AUMs has caused significant
-        environmental contamination in the Navajo Nation (Eichstaedt 1994; Masco 2013; Voyles 2015;
+        lands. This legacy of mining and the continuing presence of AUMs has caused significant
+        environmental contamination in Navajo Nation (Eichstaedt 1994; Masco 2013; Voyles 2015;
         Lewis et al. 2017). Understanding the distribution of potential exposure to these AUMs
         is a significant concern in Navajo communities. Some recent work to model this exposure potential
-        includes a multi-criteria decision analysis (MCDA) (Malczewski 2006) model developed by Lin
+        includes a multi-criteria decision analysis (MCDA) (Malczewski 2006) model, developed by Lin
         et al. (2020) to analyze and understand potential exposure within Navajo Nation.</p>
 
         <img src="images/mcda.jpg" alt="" width="300" height="300">
-
-    <h3>MCDA Model</h3>
+    
+        <h3>MCDA Model</h3>
         
     <p>The MCDA model predicts potential exposure based on several environmental criteria (wind,
         topography, hydrology, etc.) represented as raster surfaces, in which cells contain an index value
@@ -89,7 +100,7 @@
 
     <h3>Methodology</h3>
 
-    <p>Critical layers were created following methodology by <a href="https://www.researchgate.net/publication/341710587_Environmental_risk_mapping_of_potential_abandoned_uranium_mine_contamination_on_the_Navajo_Nation_USA_using_a_GIS-based_multi-criteria_decision_analysis_approach"
+    <p>Critical layers were created following the methodology by <a href="https://www.researchgate.net/publication/341710587_Environmental_risk_mapping_of_potential_abandoned_uranium_mine_contamination_on_the_Navajo_Nation_USA_using_a_GIS-based_multi-criteria_decision_analysis_approach"
         target="_blank">Lin et al. (2020).</a>  Critical layers were
         generated using the following data-sources: abandoned uranium mine point data sourced from the
         <a href="https://www.epa.gov/navajo-nation-uranium-cleanup/abandoned-mines-cleanup"
@@ -121,7 +132,7 @@
         and see the predicted exposure class for that area by clicking on the map.
     </p>
 
-    <p>The main aim of our web map was to make the described MCDA model output and make it interactive, in which a user can both visually pan and zoom on the predicted exposure surface and retrieve the predicted exposure value for a given area. 
+    <p>The main aim of our web map was to display the described MCDA model output and make it interactive. In which a user can both visually pan and zoom on the predicted exposure surface and retrieve the predicted exposure value for a given area. 
         Such interactivity will hopefuly it easier for a resident of Navajo Nation to, 
         for example, know the predicted potential exposure from this model at their home’s location, or other areas of interest.</p>
 
@@ -129,23 +140,22 @@
 
     <h3>About the Team</h3>
 
-    <p>Team Member (lead): Theodros Woldeyohannes, <a href="https://theodros-woldeyohannes.github.io/"
-        target="_blank">https://theodros-woldeyohannes.github.io/</a>(twoldey94@unm.edu) </p>
-    <p>Team Member: Eric Brannen, <a href="https://ebrannen2390.github.io/"
-        target="_blank">https://ebrannen2390.github.io/</a>(ebrannen@unm.edu) </p>
-    <p>Team Member: Maggie Ramirez, <a href="https://maggieramirez.github.io/"
-        target="_blank">https://maggieramirez.github.io/</a>(mramirez10@unm.edu) </p>
-    <p>Project Advisor: Dr. Liping Yang, <a href="https://sites.google.com/view/yang-geog485l-585l-spring2023/home?authuser=0"
-        target="_blank">course website</a>, <a href="https://lipingyang.org/"
-        target="_blank">personal website</a> (course instructor of GEOG 485L/585L
-        Interactive Web Mapping) </p>
+    <p>Team Member (lead): <a href="https://theodros-woldeyohannes.github.io/"
+        target="_blank">Theodros Woldeyohannes </a>(twoldey94@unm.edu) </p>
+    <p>Team Member: <a href="https://ebrannen2390.github.io/"
+        target="_blank">Eric Brannen </a>(ebrannen@unm.edu) </p>
+    <p>Team Member: <a href="https://maggieramirez.github.io/"
+        target="_blank">Maggie Ramirez </a>(mramirez10@unm.edu) </p>
+    <p>Project Advisor: <a href="https://lipingyang.org/"
+        target="_blank">Dr. Liping Yang </a> (lipingyang@unm.edu) </p>
 
     <p>This webmap was inspired by the UNM College of Pharmacy <a href="https://unmcop.unm.edu/metals/"
-        target="_blank">Navajo Water GIS </a>, developed by Daniel Beene and Manideep Potluru</p>
+        target="_blank">Navajo Water GIS </a>, developed by Daniel Beene and Manideep Potluru.</p>
     <p>This webmap takes advantage of the <a href="https://leafletjs.com/"
         target="_blank">leaflet</a>, <a href="https://getbootstrap.com/"
         target="_blank">bootstrap</a>, <a href="https://jquery.com/"
-        target="_blank">jquery</a> libraries</p>, and <a href="https://github.com/ptma/Leaflet.Legend"
+        target="_blank">jquery</a>, <a href="https://github.com/leongersen/noUiSlider"
+        target="_blank">noUISlider</a> libraries</p> and <a href="https://github.com/ptma/Leaflet.Legend"
         target="_blank">leaflet.legend</a> plugin. </p>
 
         <img src="images/data.jpg" alt="" width="300" height="300">
@@ -167,7 +177,7 @@
             <p><a href="https://leafletjs.com/"
             target="_blank">Leaflet — an open-source JavaScript library for interactive maps. </p>
             <p><a href="https://unmcop.unm.edu/metals/"
-            target="_blank">Beene, Daniel. Navajo Water GIS. UNM College of Pharmacy. </p>
+            target="_blank">Beene, Daniel, & Potulu, Manideep. Navajo Water GIS. UNM College of Pharmacy. </p>
             <p><a href="https://psl.noaa.gov/data/gridded/data.narr.html"
             target="_blank">NCEP North American Regional Reanalysis (NARR): NOAA Physical Sciences Laboratory NCEP North American Regional Reanalysis.</a> </p>
             <p><a href="https://www.usgs.gov/the-national-map-data-delivery"
@@ -182,9 +192,7 @@
   </div>
 </div>
 </div>
-  
- 
-  
+
 </body>
 
 </html>
