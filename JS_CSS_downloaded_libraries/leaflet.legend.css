@@ -25,6 +25,7 @@
     white-space: nowrap;
     background-color: transparent;
     text-align: left;
+    font-size: medium;
   }
   
   .leaflet-legend-item-clickable {
@@ -81,3 +82,5 @@
     display: block;
     clear: both;
   }
+
+ 

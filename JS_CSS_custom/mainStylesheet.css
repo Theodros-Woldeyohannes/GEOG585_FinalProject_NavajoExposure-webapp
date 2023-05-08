@@ -1,26 +1,98 @@
 /* Postion leaflet map */
 #mapId {
     position: absolute;
-    top: 50px;
+    top: 60px;
     right: 0px;
-    bottom: 75px;
+    bottom: 0px;
     left: 0px;
-  }
-
-/* slider design */
-#slider {
-  position: absolute;
-  bottom: 15px;
-  left: 600px;
-  width: 50%;
 }
 
 /* Button design */
 .btn {
-  color: gray;  
-  background-color: black;
+  margin-left:20px;
+  color: #ffffff;  
+  background-color: rgb(30, 194, 216);
   border-color: gray;
   
 }
 
+/* Define font for Popups */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z_PZw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Pop-up Design */
+.popup-gen {
+  font-family: "Montserrat", sans-serif;
+  width: 250px;
+  font-size: 175%;
+}
+
+/* Nav-bar Format */
+.fixed-top {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background: rgb(233, 191, 53);
+  box-shadow: 0px 4px 10px #adacac
+}
+
+/* Map title format */
+.navbar-brand {
+  padding-top: 15px;
+  font-size: x-large;
+  color: #ffffff !important;
+}
+
+/* Nav-bar Font Color */
+.navbar-nav li a {
+  color: #ffffff !important;
+}
+
+/* Nav-bar button positions */
+.navbar-right {
+  padding-top: 5px;
+  padding-right: 20px;
+}
+
+/* Slider-bar Overlay Format */
+#Sliderbox {
+  position: absolute;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 50px;
+  right: 0;
+  bottom: 0;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px grey;
+  min-height: 100px;
+  min-width: 400px;
+}
+
+/* Slider-bar title format */
+#Sliderbox h2 {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Instructions Modal */
+
+.h1-instructions {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.p-instructions {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
 

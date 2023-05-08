@@ -3,20 +3,21 @@
 //execute only when window is fully loaded
 window.onload = function () {
 
-    //define map object, define basemap tilelayers
-    var mapObject = L.map('mapId');
+    //define map object, set zoom, define basemap tilelayers
+    var mapObject = L.map('mapId', {
+        minZoom: 8,
+        zoomControl: false
+    });
 
     //streets
     var streetMap = L.tileLayer('https://api.mapbox.com/styles/v1/liping17/cj6ut4r6u1vnw2rmrtwymq5lq/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGlwaW5nMTciLCJhIjoiY2o2dTJwYTJ0MG1wdzMzbzRrNDJlOG5jbyJ9.cr8HRltBug7xDGgTV_X__A', {
         maxZoom: 18,
         attribution: '&copy; <a href=”https://www.mapbox.com/about/maps/”>Mapbox</a> &copy; <a href=”http://www.openstreetmap.org/copyright”>OpenStreetMap</a>',
-        // pane: 'myPane1'
     });
 
     //satellite
     var satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-    // pane: 'myPane1'
     });
 
     //define popup function
@@ -25,27 +26,29 @@ window.onload = function () {
         // Assign location and stolen value properties to variables. Assign those variables to a combined
         //information variable that is passed to bindPopup()
 
-        //parse geoJSON for Class property, define as variable (this is the potential exposure class)
-        var ex_class = feature.properties.Class
+        //parse geoJSON for aggregated Class and potential exposure index properties, define as variable (this is the potential exposure class)
+        var ex_class = feature.properties.Class_AGG
+        var ex_index = feature.properties.Index
         
-        //define HTML variable for popup that displays potential exposure class, pass to bindPopup
+        //define HTML variable for popup that displays potential exposure class and index value range, pass to bindPopup
         var info = "<dl><dt>Exposure Potential is:</dt>"
-                    + "<dd>" + ex_class + "</dd></dl>"
-        layer.bindPopup(info)
+                    + "<dd>" + ex_index + " " + "(" + ex_class + ")" + "</dd></dl>"
+        layer.bindPopup(info, {className: "popup-gen"})
     
     }
     
     //read in exposure geoJSON, define as variable
     var expolayer = L.geoJSON(exposure, {
 
-        
-        
         //use switch case to set color based on exposure class, remove polygon outlines, add popup function
         style: function(feature) {
             switch (feature.properties.Class) {
-                case 'low': return {color: "#0000ff", fillOpacity: 0.5, stroke: false};
-                case 'medium': return {color: "#ffff00", fillOpacity: 0.5, stroke: false};
-                case 'high': return {color: "#ff0000", fillOpacity: 0.5, stroke: false};
+                case 'low': return {color: "#FFFFFF", fillOpacity: 0.6, stroke: false};
+                case 'low-medium': return {color: "#FFCCCC", fillOpacity: 0.6, stroke: false};
+                case 'medium': return {color: "#FF9999", fillOpacity: 0.7, stroke: false};
+                case 'medium-high': return {color: "#FF6666", fillOpacity: 0.7, stroke: false};
+                case 'high': return {color: "#FF3333", fillOpacity: 0.8, stroke: false};
+                case 'high-high': return {color: "#8b0000", fillOpacity: 0.8, stroke: false};
 
             }   
         },
@@ -65,15 +68,14 @@ window.onload = function () {
         
         pointToLayer: function (feature, latlng) {
 
-            //add popup
-            var popupContent = "Mine Name: " + feature.properties.Mine_Name +
-             "<br>" + "Mine Size: " + feature.properties.Area_sqm;
+            //add popup of mine name and size
+            var popupContent = "<b>Mine Name</b>: " + feature.properties.Mine_Name +
+             "<br>" + "<br>" + "<b>Mine Size</b>: " + (feature.properties.Area_sqm/1000).toFixed(0) + " " + "km<sup>2</sup>";
 
             //base radius marker option on mine size
             function getOptions(properties) {
                 return {
                     radius: Math.sqrt(Number(properties.Area_sqm) / 2000) + 3,
-                    // fillColor: "#E97451",
                     fillColor: "orange",
                     color: "black",
                     weight: 1,
@@ -82,7 +84,7 @@ window.onload = function () {
                 };
             }
 
-            return L.circleMarker(latlng, getOptions(feature.properties)).bindPopup(popupContent);
+            return L.circleMarker(latlng, getOptions(feature.properties)).bindPopup(popupContent, {className: "popup-gen"});
         } 
     }).addTo(mapObject);
 
@@ -124,37 +126,59 @@ window.onload = function () {
         position: "bottomleft",
         collapsed: false,
         symbolWidth: 24,
-        opacity: 1,
+        opacity: 0.7,
         column: 1,
         legends: [
         {
             label: "Mines (larger circle indicates bigger mine)",
             type: "circle",
+            radius: 5,
             color: "#000000",
             fillColor: "#FFA500",
-            weight: 2
+            weight: 1
         },{
-            label: "low potential exposure",
+            label: "0 - 0.17 (low potential exposure)",
             type: "rectangle",
-            color: "#0000ff",
-            fillColor: "#0000ff",
-            weight: 2
+            color: "#000000",
+            fillColor: "#FFFFFF",
+            weight: 1
         },{
-            label: "medium potential exposure",
+            label: "0.17 - 0.26 (low potential exposure)",
             type: "rectangle",
-            color: "#ffff00",
-            fillColor: "#ffff00",
+            color: "#FFCCCC",
+            fillColor: "#FFCCCC",
             weight: 2 
         },{
-            label: "high potential exposure",
+            label: "0.26 - 0.34 (medium potential exposure)",
             type: "rectangle",
-            color: "#ff0000",
-            fillColor: "#ff0000",
+            color: "#FF9999",
+            fillColor: "#FF9999",
+            weight: 2 
+        },{
+            label: "0.34 - 0.42 (medium potential exposure)",
+            type: "rectangle",
+            color: "#FF6666",
+            fillColor: "#FF6666",
+            weight: 2 
+        },{
+            label: "0.42 - 0.5 (high potential exposure)",
+            type: "rectangle",
+            color: "#FF3333",
+            fillColor: "#FF3333",
+            weight: 2 
+        },{
+            label: "0.5 - 0.6 (high potential exposure)",
+            type: "rectangle",
+            color: "#8b0000",
+            fillColor: "#8b0000",
             weight: 2
         }]
     }).addTo(mapObject); 
 
     //set map view to extent of exposure layer
     mapObject.fitBounds(expolayer.getBounds());
+
+    //add reset button to zoom control
+    mapObject.addControl(new L.Control.ZoomMin())
 
 };
