@@ -5,7 +5,6 @@ window.onload = function () {
 
     //define map object, set zoom, define basemap tilelayers
     var mapObject = L.map('mapId', {
-        minZoom: 8,
         zoomControl: false
     });
 
@@ -179,6 +178,7 @@ window.onload = function () {
     mapObject.fitBounds(expolayer.getBounds());
 
     //add reset button to zoom control
-    mapObject.addControl(new L.Control.ZoomMin())
+    var zoomHome = L.Control.zoomHome();
+    zoomHome.addTo(mapObject);
 
 };
