@@ -1,0 +1,126 @@
+/* navbar */
+.navbar-nav {
+    display: inline-block;
+    list-style-type: none;
+    float:none;
+    margin:0 auto;
+    display: block;
+    text-align: center;
+}
+
+.navbar-nav > li {
+  display: inline-block;
+  float:none;
+}
+
+/* links */
+a, a:link, a:visited {
+  color: rgb(31, 162, 206);
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: black ;
+  background-color: #cfc ;
+}
+
+/* body */
+body {
+  position: relative;
+}
+
+/* image */
+.bg-1 {
+  padding-top: 50px;
+  background-color: #ffffff;
+  color: #ffffff;
+}
+
+.img {
+  display: block;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* headers */
+.h-title {
+  text-align: center;
+}
+
+.h-car {
+  font-size: 60px;
+}
+
+.h-scroll {
+  font-size: 60px;
+  color: black;
+  text-align: center;
+}
+
+.h-teach {
+  font-size: 75px;
+  text-align: center;
+}
+
+/* paragraphs */
+.p-norm {
+  text-align: center;
+}
+
+.p-car {
+  font-size: 30px;
+}
+
+.p-just {
+  font-size: 20px;
+  text-align: justify;
+}
+
+.p-scroll {
+  font-size: 30px;
+  color: black;
+  text-align: center;
+}
+
+/* scroll sections */
+#section1 {
+  padding-top: 0px;
+  height: 250px;
+  color: #fff;
+  background-color: #1E88E5;
+}
+
+#section2 {
+  display:block;
+  padding-top: 100px;
+  height: 1000px;
+  color: #fff;
+  background-color: #ffffff;
+  
+}
+
+#section3 {
+  display:block;
+  padding-top: 50px;
+  height: 1000px;
+  color: #fff;
+  background-image: linear-gradient(#ffffff, #ecd75d);
+}
+
+#section41 {
+  display:block;
+  padding-top: 50px;
+  height: 1000px;
+  color: #fff;
+  background-image: linear-gradient(#ecd75d, #c4ac28);
+}
+
+#section42 {
+  display:block;
+  padding-top: 50px;
+  height: 1000px;
+  color: #fff;
+  background-image: linear-gradient(#c4ac28, #615511);
+}
